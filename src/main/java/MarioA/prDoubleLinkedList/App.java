@@ -3,6 +3,7 @@ package MarioA.prDoubleLinkedList;
 
 public class App {
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
+		DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+		System.out.println(list);
 	}
 }

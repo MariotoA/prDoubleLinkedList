@@ -1,0 +1,143 @@
+package MarioA.prDoubleLinkedList;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+public class DoubleLinkedList<T> {
+	private class NodeDoubleLinkedList<Type> {
+		Type element;
+		NodeDoubleLinkedList<Type> prev;
+		NodeDoubleLinkedList<Type> next;
+
+		public NodeDoubleLinkedList(Type element,
+				NodeDoubleLinkedList<Type> prev, NodeDoubleLinkedList<Type> next) {
+			this.element = element;
+			this.prev = prev;
+			this.next = next;
+		}
+	}
+
+	private NodeDoubleLinkedList<T> first;
+	private NodeDoubleLinkedList<T> last;
+
+	public DoubleLinkedList() {
+		this.first = null;
+		this.last = null;
+	}
+
+	public DoubleLinkedList(List<T> lista) {
+		for (T elems : lista) {
+			this.insertBeginning(new NodeDoubleLinkedList<T>(elems, null, null));
+		}
+	}
+
+	public boolean isEmpty() {
+		return this.first == null && this.last == null;
+	}
+
+	private void insertEnd(NodeDoubleLinkedList<T> nodeToInsert) {
+		if (this.isEmpty()) {
+			this.first = nodeToInsert;
+			this.last = nodeToInsert;
+		} else {
+			this.last.next = nodeToInsert;
+			nodeToInsert.prev = this.last;
+			this.last = this.last.next;
+
+		}
+	}
+
+	private void insertBeginning(NodeDoubleLinkedList<T> nodeToInsert) {
+		if (this.isEmpty()) {
+			this.first = nodeToInsert;
+			this.last = nodeToInsert;
+		} else {
+			this.first.prev = nodeToInsert;
+			nodeToInsert.next = this.first;
+			this.first = this.first.prev;
+
+		}
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		Iterator<T> iter = this.iteratorForwards();
+		while (iter.hasNext()) {
+			sb.append(iter.next().toString());
+			sb.append(",");
+		}
+		return sb.toString();
+
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Iterator<T> iteratorForwards() {
+		return new DoubleLinkedListIteratorForwards();
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Iterator<T> iteratorBackwards() {
+		return new DoubleLinkedListIteratorBackwards();
+	}
+
+	private class DoubleLinkedListIteratorForwards implements Iterator<T> {
+		private NodeDoubleLinkedList<T> actual;
+
+		public DoubleLinkedListIteratorForwards() {
+			this.actual = first;
+		}
+
+		public boolean hasNext() {
+			return actual != null;
+		}
+
+		public T next() {
+			if (!this.hasNext()) {
+				throw new NoSuchElementException();
+			}
+			NodeDoubleLinkedList<T> aux = actual;
+			actual = actual.next;
+			return aux.element;
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
+
+		}
+
+	}
+
+	private class DoubleLinkedListIteratorBackwards implements Iterator<T> {
+		private NodeDoubleLinkedList<T> actual;
+
+		public DoubleLinkedListIteratorBackwards() {
+			this.actual = last;
+		}
+
+		public boolean hasNext() {
+			return actual != null;
+		}
+
+		public T next() {
+			if (!this.hasNext()) {
+				throw new NoSuchElementException();
+			}
+			NodeDoubleLinkedList<T> aux = actual;
+			actual = actual.prev;
+			return aux.element;
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
+
+		}
+
+	}
+}
