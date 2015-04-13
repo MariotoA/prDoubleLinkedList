@@ -18,6 +18,6 @@ public class App {
 		System.out.println(list);
 		list.remove(5);
 		System.out.println(list);
-		list.remove(94);
+		System.out.println(list.get(7));
 	}
 }

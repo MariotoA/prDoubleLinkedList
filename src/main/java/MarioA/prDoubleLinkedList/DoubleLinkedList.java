@@ -65,23 +65,46 @@ public class DoubleLinkedList<T> {
 		}
 	}
 	
-	public void remove(int index){
-		int cont = 0;
-		boolean encontrado = false;
+	private NodeDoubleLinkedList<T> find(T elem){
+		boolean found = false;
 		NodeDoubleLinkedList<T> nodeAux=first;
-		while(nodeAux!=null&&!encontrado){
+		while(nodeAux!=null&&!found){
+			if(nodeAux.element.equals(elem)){
+				found = true;
+			} else{
+				nodeAux = nodeAux.next;
+			}
+		}
+		return nodeAux;
+	}
+	public boolean contains(T elem){
+		return this.find(elem) != null;
+	}
+	private NodeDoubleLinkedList<T> getNode(int index){
+		int cont = 0;
+		boolean found = false;
+		NodeDoubleLinkedList<T> nodeAux=first;
+		while(nodeAux!=null&&!found){
 			if(cont==index){
-				encontrado = true;
+				found = true;
 			} else{
 				cont++;
 				nodeAux = nodeAux.next;
 			}
 		}
-		if(encontrado){
-			this.remove(nodeAux);
-		} else {
+		if(!found){
 			throw new DoubleLinkedListException("Index out of list bounds.");
 		}
+		return nodeAux;
+	}
+	
+	public T get(int index){
+		T res = this.getNode(index).element;
+		return res;
+	}
+	
+	public void remove(int index){
+		this.remove(this.getNode(index));
 	}
 	
 	private void remove(NodeDoubleLinkedList<T> node){
