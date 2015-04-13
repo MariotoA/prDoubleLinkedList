@@ -26,9 +26,9 @@ public class DoubleLinkedList<T> {
 		this.last = null;
 	}
 
-	public DoubleLinkedList(List<T> lista) {
-		for (T elems : lista) {
-			this.insertBeginning(new NodeDoubleLinkedList<T>(elems, null, null));
+	public DoubleLinkedList(List<T> list) {
+		for (T elems : list) {
+			this.insertEnd(new NodeDoubleLinkedList<T>(elems, null, null));
 		}
 	}
 
@@ -47,7 +47,12 @@ public class DoubleLinkedList<T> {
 
 		}
 	}
-
+	public void insertEnd(T elem){
+		this.insertEnd(new NodeDoubleLinkedList<T>(elem,null,null));
+	}
+	public void insertBeginning(T elem){
+		this.insertBeginning(new NodeDoubleLinkedList<T>(elem,null,null));
+	}
 	private void insertBeginning(NodeDoubleLinkedList<T> nodeToInsert) {
 		if (this.isEmpty()) {
 			this.first = nodeToInsert;
@@ -59,15 +64,21 @@ public class DoubleLinkedList<T> {
 
 		}
 	}
-
+	
+	private void delete(){
+		//TODO
+	}
+	
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder("[");
 		Iterator<T> iter = this.iteratorForwards();
 		while (iter.hasNext()) {
 			sb.append(iter.next().toString());
-			sb.append(",");
+			if(iter.hasNext()){
+				sb.append(", ");
+			}
 		}
-		return sb.toString();
+		return sb.append("]").toString();
 
 	}
 
