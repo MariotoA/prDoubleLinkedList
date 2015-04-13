@@ -9,15 +9,15 @@ public class App {
 		List<Integer> listArr = new ArrayList<Integer>();
 		DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
 		System.out.println(list);
-		for(int i = 0; i<10; i++){
+		for(int i = 0; i<5; i++){
 			listArr.add(i);
 		}
 		list = new DoubleLinkedList<Integer>(listArr);
-		list.insertBeginning(1);
-		list.insertEnd(94);
 		System.out.println(list);
-		list.remove(5);
+		System.out.println(list.size());
+		list.remove(3);
 		System.out.println(list);
-		System.out.println(list.get(7));
+		System.out.println(list.size());
+		
 	}
 }

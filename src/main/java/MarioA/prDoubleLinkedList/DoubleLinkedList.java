@@ -20,10 +20,12 @@ public class DoubleLinkedList<T> {
 
 	private NodeDoubleLinkedList<T> first;
 	private NodeDoubleLinkedList<T> last;
+	private int size;
 
 	public DoubleLinkedList() {
 		this.first = null;
 		this.last = null;
+		this.size = 0;
 	}
 
 	public DoubleLinkedList(List<T> list) {
@@ -33,7 +35,7 @@ public class DoubleLinkedList<T> {
 	}
 
 	public boolean isEmpty() {
-		return this.first == null && this.last == null;
+		return this.size == 0;
 	}
 
 	private void insertEnd(NodeDoubleLinkedList<T> nodeToInsert) {
@@ -46,13 +48,17 @@ public class DoubleLinkedList<T> {
 			this.last = this.last.next;
 
 		}
+		this.size++;
 	}
-	public void insertEnd(T elem){
-		this.insertEnd(new NodeDoubleLinkedList<T>(elem,null,null));
+
+	public void insertEnd(T elem) {
+		this.insertEnd(new NodeDoubleLinkedList<T>(elem, null, null));
 	}
-	public void insertBeginning(T elem){
-		this.insertBeginning(new NodeDoubleLinkedList<T>(elem,null,null));
+
+	public void insertBeginning(T elem) {
+		this.insertBeginning(new NodeDoubleLinkedList<T>(elem, null, null));
 	}
+
 	private void insertBeginning(NodeDoubleLinkedList<T> nodeToInsert) {
 		if (this.isEmpty()) {
 			this.first = nodeToInsert;
@@ -63,66 +69,78 @@ public class DoubleLinkedList<T> {
 			this.first = this.first.prev;
 
 		}
+		this.size++;
 	}
-	
-	private NodeDoubleLinkedList<T> find(T elem){
+
+	private NodeDoubleLinkedList<T> find(T elem) {
 		boolean found = false;
-		NodeDoubleLinkedList<T> nodeAux=first;
-		while(nodeAux!=null&&!found){
-			if(nodeAux.element.equals(elem)){
+		NodeDoubleLinkedList<T> nodeAux = first;
+		while (nodeAux != null && !found) {
+			if (nodeAux.element.equals(elem)) {
 				found = true;
-			} else{
+			} else {
 				nodeAux = nodeAux.next;
 			}
 		}
 		return nodeAux;
 	}
-	public boolean contains(T elem){
+
+	public boolean contains(T elem) {
 		return this.find(elem) != null;
 	}
-	private NodeDoubleLinkedList<T> getNode(int index){
-		int cont = 0;
-		boolean found = false;
-		NodeDoubleLinkedList<T> nodeAux=first;
-		while(nodeAux!=null&&!found){
-			if(cont==index){
-				found = true;
-			} else{
-				cont++;
+
+	private NodeDoubleLinkedList<T> getNode(int index)
+			throws DoubleLinkedListException {
+		if (index < 0 || index >= this.size) {
+			throw new DoubleLinkedListException("Index out of list bounds.");
+		}
+		int half = this.size / 2;
+		NodeDoubleLinkedList<T> nodeAux;
+		if (index < half) {
+			nodeAux = this.first;
+			for (int i = 0; i < index; i++) {
 				nodeAux = nodeAux.next;
 			}
-		}
-		if(!found){
-			throw new DoubleLinkedListException("Index out of list bounds.");
+
+		} else {
+			nodeAux = this.last;
+			for (int i = this.size - 1; i > index; i--) {
+				nodeAux = nodeAux.prev;
+			}
 		}
 		return nodeAux;
 	}
-	
-	public T get(int index){
+
+	public int size() {
+		return this.size;
+	}
+
+	public T get(int index) {
 		T res = this.getNode(index).element;
 		return res;
 	}
-	
-	public void remove(int index){
+
+	public void remove(int index) {
 		this.remove(this.getNode(index));
 	}
-	
-	private void remove(NodeDoubleLinkedList<T> node){
-		if(node.prev==null){
-			this.first=this.first.next;
-		} else if(node.next==null){
-			this.last=this.last.prev;
+
+	private void remove(NodeDoubleLinkedList<T> node) {
+		if (node.prev == null) {
+			this.first = this.first.next;
+		} else if (node.next == null) {
+			this.last = this.last.prev;
 		} else {
 			node.prev.next = node.next;
 		}
+		this.size--;
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("[");
 		Iterator<T> iter = this.iteratorForwards();
 		while (iter.hasNext()) {
 			sb.append(iter.next().toString());
-			if(iter.hasNext()){
+			if (iter.hasNext()) {
 				sb.append(", ");
 			}
 		}
