@@ -16,5 +16,8 @@ public class App {
 		list.insertBeginning(1);
 		list.insertEnd(94);
 		System.out.println(list);
+		list.remove(5);
+		System.out.println(list);
+		list.remove(94);
 	}
 }

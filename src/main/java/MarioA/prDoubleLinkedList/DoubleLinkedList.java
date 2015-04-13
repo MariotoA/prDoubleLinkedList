@@ -65,8 +65,33 @@ public class DoubleLinkedList<T> {
 		}
 	}
 	
-	private void delete(){
-		//TODO
+	public void remove(int index){
+		int cont = 0;
+		boolean encontrado = false;
+		NodeDoubleLinkedList<T> nodeAux=first;
+		while(nodeAux!=null&&!encontrado){
+			if(cont==index){
+				encontrado = true;
+			} else{
+				cont++;
+				nodeAux = nodeAux.next;
+			}
+		}
+		if(encontrado){
+			this.remove(nodeAux);
+		} else {
+			throw new DoubleLinkedListException("Index out of list bounds.");
+		}
+	}
+	
+	private void remove(NodeDoubleLinkedList<T> node){
+		if(node.prev==null){
+			this.first=this.first.next;
+		} else if(node.next==null){
+			this.last=this.last.prev;
+		} else {
+			node.prev.next = node.next;
+		}
 	}
 	
 	public String toString() {
