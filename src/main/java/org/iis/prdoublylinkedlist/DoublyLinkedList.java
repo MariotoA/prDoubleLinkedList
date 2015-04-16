@@ -1,36 +1,36 @@
-package org.iis.prdoublelinkedlist;
+package org.iis.prdoublylinkedlist;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class DoubleLinkedList<T> {
-    private class NodeDoubleLinkedList<E> {
+public class DoublyLinkedList<T> {
+    private class NodeDoublyLinkedList<E> {
         E element;
-        NodeDoubleLinkedList<E> prev;
-        NodeDoubleLinkedList<E> next;
+        NodeDoublyLinkedList<E> prev;
+        NodeDoublyLinkedList<E> next;
 
-        public NodeDoubleLinkedList(E element, NodeDoubleLinkedList<E> prev,
-                NodeDoubleLinkedList<E> next) {
+        public NodeDoublyLinkedList(E element, NodeDoublyLinkedList<E> prev,
+                NodeDoublyLinkedList<E> next) {
             this.element = element;
             this.prev = prev;
             this.next = next;
         }
     }
 
-    private NodeDoubleLinkedList<T> first;
-    private NodeDoubleLinkedList<T> last;
+    private NodeDoublyLinkedList<T> first;
+    private NodeDoublyLinkedList<T> last;
     private int size;
 
-    public DoubleLinkedList() {
+    public DoublyLinkedList() {
         this.first = null;
         this.last = null;
         this.size = 0;
     }
 
-    public DoubleLinkedList(List<T> list) {
+    public DoublyLinkedList(List<T> list) {
         for (T elems : list) {
-            this.insertEnd(new NodeDoubleLinkedList<T>(elems, null, null));
+            this.insertEnd(new NodeDoublyLinkedList<T>(elems, null, null));
         }
     }
 
@@ -38,7 +38,7 @@ public class DoubleLinkedList<T> {
         return this.size == 0;
     }
 
-    private void insertEnd(NodeDoubleLinkedList<T> nodeToInsert) {
+    private void insertEnd(NodeDoublyLinkedList<T> nodeToInsert) {
         if (this.isEmpty()) {
             this.first = nodeToInsert;
             this.last = nodeToInsert;
@@ -52,14 +52,14 @@ public class DoubleLinkedList<T> {
     }
 
     public void insertEnd(T elem) {
-        this.insertEnd(new NodeDoubleLinkedList<T>(elem, null, null));
+        this.insertEnd(new NodeDoublyLinkedList<T>(elem, null, null));
     }
 
     public void insertBeginning(T elem) {
-        this.insertBeginning(new NodeDoubleLinkedList<T>(elem, null, null));
+        this.insertBeginning(new NodeDoublyLinkedList<T>(elem, null, null));
     }
 
-    private void insertBeginning(NodeDoubleLinkedList<T> nodeToInsert) {
+    private void insertBeginning(NodeDoublyLinkedList<T> nodeToInsert) {
         if (this.isEmpty()) {
             this.first = nodeToInsert;
             this.last = nodeToInsert;
@@ -72,9 +72,9 @@ public class DoubleLinkedList<T> {
         this.size++;
     }
 
-    private NodeDoubleLinkedList<T> find(T elem) {
+    private NodeDoublyLinkedList<T> find(T elem) {
         boolean found = false;
-        NodeDoubleLinkedList<T> nodeAux = first;
+        NodeDoublyLinkedList<T> nodeAux = first;
         while (nodeAux != null && !found) {
             if (nodeAux.element.equals(elem)) {
                 found = true;
@@ -89,13 +89,13 @@ public class DoubleLinkedList<T> {
         return this.find(elem) != null;
     }
 
-    private NodeDoubleLinkedList<T> getNode(int index)
-            throws DoubleLinkedListException {
+    private NodeDoublyLinkedList<T> getNode(int index)
+            throws DoublyLinkedListException {
         if (index < 0 || index >= this.size) {
-            throw new DoubleLinkedListException("Index out of list bounds.");
+            throw new DoublyLinkedListException("Index out of list bounds.");
         }
         int half = this.size / 2;
-        NodeDoubleLinkedList<T> nodeAux;
+        NodeDoublyLinkedList<T> nodeAux;
         if (index < half) {
             nodeAux = this.first;
             for (int i = 0; i < index; i++) {
@@ -123,7 +123,7 @@ public class DoubleLinkedList<T> {
         this.remove(this.getNode(index));
     }
 
-    private void remove(NodeDoubleLinkedList<T> node) {
+    private void remove(NodeDoublyLinkedList<T> node) {
         if (node.prev == null) {
             this.first = this.first.next;
         } else if (node.next == null) {
@@ -152,7 +152,7 @@ public class DoubleLinkedList<T> {
      * @return
      */
     public Iterator<T> iteratorForwards() {
-        return new DoubleLinkedListIteratorForwards();
+        return new DoublyLinkedListIteratorForwards();
     }
 
     /**
@@ -160,13 +160,13 @@ public class DoubleLinkedList<T> {
      * @return
      */
     public Iterator<T> iteratorBackwards() {
-        return new DoubleLinkedListIteratorBackwards();
+        return new DoublyLinkedListIteratorBackwards();
     }
 
-    private class DoubleLinkedListIteratorForwards implements Iterator<T> {
-        private NodeDoubleLinkedList<T> actual;
+    private class DoublyLinkedListIteratorForwards implements Iterator<T> {
+        private NodeDoublyLinkedList<T> actual;
 
-        public DoubleLinkedListIteratorForwards() {
+        public DoublyLinkedListIteratorForwards() {
             this.actual = first;
         }
 
@@ -178,7 +178,7 @@ public class DoubleLinkedList<T> {
             if (!this.hasNext()) {
                 throw new NoSuchElementException();
             }
-            NodeDoubleLinkedList<T> aux = actual;
+            NodeDoublyLinkedList<T> aux = actual;
             actual = actual.next;
             return aux.element;
         }
@@ -190,10 +190,10 @@ public class DoubleLinkedList<T> {
 
     }
 
-    private class DoubleLinkedListIteratorBackwards implements Iterator<T> {
-        private NodeDoubleLinkedList<T> actual;
+    private class DoublyLinkedListIteratorBackwards implements Iterator<T> {
+        private NodeDoublyLinkedList<T> actual;
 
-        public DoubleLinkedListIteratorBackwards() {
+        public DoublyLinkedListIteratorBackwards() {
             this.actual = last;
         }
 
@@ -205,7 +205,7 @@ public class DoubleLinkedList<T> {
             if (!this.hasNext()) {
                 throw new NoSuchElementException();
             }
-            NodeDoubleLinkedList<T> aux = actual;
+            NodeDoublyLinkedList<T> aux = actual;
             actual = actual.prev;
             return aux.element;
         }
