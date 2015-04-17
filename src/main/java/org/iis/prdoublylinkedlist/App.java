@@ -17,7 +17,8 @@ public class App {
         list = new DoublyLinkedList<Integer>(listArr);
         System.out.println(list);
         System.out.println(list.size());
-        list.remove(3);
+        list.insertAfter(2345, 4);
+        list.insertBefore(2345, 4);
         System.out.println(list);
         System.out.println(list.size());
 

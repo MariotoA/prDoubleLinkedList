@@ -29,6 +29,7 @@ public class DoublyLinkedList<T> {
     }
 
     public DoublyLinkedList(List<T> list) {
+        this();
         for (T elems : list) {
             this.insertEnd(new NodeDoublyLinkedList<T>(elems, null, null));
         }
@@ -38,7 +39,11 @@ public class DoublyLinkedList<T> {
         return this.size == 0;
     }
 
-    private void insertEnd(NodeDoublyLinkedList<T> nodeToInsert) {
+    private void insertEnd(NodeDoublyLinkedList<T> nodeToInsert)
+            throws DoublyLinkedListException {
+        if (nodeToInsert == null) {
+            throw new DoublyLinkedListException("Insertion of a null node.");
+        }
         if (this.isEmpty()) {
             this.first = nodeToInsert;
             this.last = nodeToInsert;
@@ -55,11 +60,65 @@ public class DoublyLinkedList<T> {
         this.insertEnd(new NodeDoublyLinkedList<T>(elem, null, null));
     }
 
+    public void insertBefore(T elem, int position) {
+        NodeDoublyLinkedList<T> nodeToInsert = new NodeDoublyLinkedList<T>(
+                elem, null, null);
+        if (position == 0) {
+            this.insertBeginning(nodeToInsert);
+        } else if (position == this.size) {
+            this.insertEnd(nodeToInsert);
+        } else {
+            this.insertBefore(nodeToInsert, this.getNode(position));
+        }
+    }
+
+    public void insertAfter(T elem, int position) {
+        NodeDoublyLinkedList<T> nodeToInsert = new NodeDoublyLinkedList<T>(
+                elem, null, null);
+        if (position == this.size - 1) {
+            this.insertEnd(nodeToInsert);
+        } else {
+            this.insertAfter(nodeToInsert, this.getNode(position));
+        }
+    }
+
+    private void insertAfter(NodeDoublyLinkedList<T> nodeToInsert,
+            NodeDoublyLinkedList<T> nodeRef) throws DoublyLinkedListException {
+        if (nodeToInsert == null) {
+            throw new DoublyLinkedListException("Insertion of a null node.");
+        } else if (nodeRef == null) {
+            throw new DoublyLinkedListException("Insertion after a null node.");
+        }
+        nodeRef.next.prev = nodeToInsert;
+        nodeToInsert.next = nodeRef.next;
+        nodeToInsert.prev = nodeRef;
+        nodeRef.next = nodeToInsert;
+        this.size++;
+    }
+
+    private void insertBefore(NodeDoublyLinkedList<T> nodeToInsert,
+            NodeDoublyLinkedList<T> nodeRef) throws DoublyLinkedListException {
+        if (nodeToInsert == null) {
+            throw new DoublyLinkedListException("Insertion of a null node.");
+        } else if (nodeRef == null) {
+            throw new DoublyLinkedListException("Insertion before a null node.");
+        }
+        nodeRef.prev.next = nodeToInsert;
+        nodeToInsert.prev = nodeRef.prev;
+        nodeToInsert.next = nodeRef;
+        nodeRef.prev = nodeToInsert;
+        this.size++;
+    }
+
     public void insertBeginning(T elem) {
         this.insertBeginning(new NodeDoublyLinkedList<T>(elem, null, null));
     }
 
-    private void insertBeginning(NodeDoublyLinkedList<T> nodeToInsert) {
+    private void insertBeginning(NodeDoublyLinkedList<T> nodeToInsert)
+            throws DoublyLinkedListException {
+        if (nodeToInsert == null) {
+            throw new DoublyLinkedListException("Insertion of a null node.");
+        }
         if (this.isEmpty()) {
             this.first = nodeToInsert;
             this.last = nodeToInsert;
