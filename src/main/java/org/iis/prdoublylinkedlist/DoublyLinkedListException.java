@@ -2,9 +2,6 @@ package org.iis.prdoublylinkedlist;
 
 public class DoublyLinkedListException extends RuntimeException {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 1L;
 
     public DoublyLinkedListException() {
