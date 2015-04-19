@@ -21,7 +21,7 @@ public class DoublyLinkedList<T> {
     private NodeDoublyLinkedList<T> first;
     private NodeDoublyLinkedList<T> last;
     private int size;
-    private static final String errorInsertNullNode = "Insertion %s a null node.";
+    private static final String ERRORINSERTNULLNODE = "Insertion %s a null node.";
     public DoublyLinkedList() {
         this.first = null;
         this.last = null;
@@ -42,7 +42,7 @@ public class DoublyLinkedList<T> {
     private void insertEnd(NodeDoublyLinkedList<T> nodeToInsert)
             throws DoublyLinkedListException {
         if (nodeToInsert == null) {
-            throw new DoublyLinkedListException(String.format(errorInsertNullNode,"of"));
+            throw new DoublyLinkedListException(String.format(ERRORINSERTNULLNODE,"of"));
         }
         if (this.isEmpty()) {
             this.first = nodeToInsert;
@@ -85,9 +85,9 @@ public class DoublyLinkedList<T> {
     private void insertAfter(NodeDoublyLinkedList<T> nodeToInsert,
             NodeDoublyLinkedList<T> nodeRef) throws DoublyLinkedListException {
         if (nodeToInsert == null) {
-            throw new DoublyLinkedListException(String.format(errorInsertNullNode,"of"));
+            throw new DoublyLinkedListException(String.format(ERRORINSERTNULLNODE,"of"));
         } else if (nodeRef == null) {
-            throw new DoublyLinkedListException(String.format(errorInsertNullNode,"after"));
+            throw new DoublyLinkedListException(String.format(ERRORINSERTNULLNODE,"after"));
         }
         nodeRef.next.prev = nodeToInsert;
         nodeToInsert.next = nodeRef.next;
@@ -99,9 +99,9 @@ public class DoublyLinkedList<T> {
     private void insertBefore(NodeDoublyLinkedList<T> nodeToInsert,
             NodeDoublyLinkedList<T> nodeRef) throws DoublyLinkedListException {
         if (nodeToInsert == null) {
-            throw new DoublyLinkedListException(String.format(errorInsertNullNode,"of"));
+            throw new DoublyLinkedListException(String.format(ERRORINSERTNULLNODE,"of"));
         } else if (nodeRef == null) {
-            throw new DoublyLinkedListException(String.format(errorInsertNullNode,"before"));
+            throw new DoublyLinkedListException(String.format(ERRORINSERTNULLNODE,"before"));
         }
         nodeRef.prev.next = nodeToInsert;
         nodeToInsert.prev = nodeRef.prev;
@@ -117,7 +117,7 @@ public class DoublyLinkedList<T> {
     private void insertBeginning(NodeDoublyLinkedList<T> nodeToInsert)
             throws DoublyLinkedListException {
         if (nodeToInsert == null) {
-            throw new DoublyLinkedListException(String.format(errorInsertNullNode,"of"));
+            throw new DoublyLinkedListException(String.format(ERRORINSERTNULLNODE,"of"));
         }
         if (this.isEmpty()) {
             this.first = nodeToInsert;
@@ -192,7 +192,7 @@ public class DoublyLinkedList<T> {
         }
         this.size--;
     }
-
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
         Iterator<T> iter = this.iteratorForwards();
