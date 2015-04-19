@@ -2,7 +2,6 @@
 .project
 .settings
 /target
-target/test-classes/org/iis/prdoublelinkedlist
 target
 sonar
 .sonar
