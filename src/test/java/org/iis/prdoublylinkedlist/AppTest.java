@@ -1,4 +1,4 @@
-package org.iis.prdoublelinkedlist;
+package org.iis.prdoublylinkedlist;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
