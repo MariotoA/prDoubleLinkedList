@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class DoublyLinkedList<T> implements Iterable<T>{
-  private class NodeDoublyLinkedList<E> {
+  public static class NodeDoublyLinkedList<E> {
     E element;
     NodeDoublyLinkedList<E> prev;
     NodeDoublyLinkedList<E> next;
@@ -259,12 +259,10 @@ public class DoublyLinkedList<T> implements Iterable<T>{
       this.previous = null;
     }
 
-    @Override
     public boolean hasNext() {
       return current != null;
     }
 
-    @Override
     public T next() {
       if (!this.hasNext()) {
         throw new NoSuchElementException();
@@ -303,12 +301,10 @@ public class DoublyLinkedList<T> implements Iterable<T>{
       this.previous = null;
     }
 
-    @Override
     public boolean hasNext() {
       return current != null;
     }
 
-    @Override
     public T next() {
       if (!this.hasNext()) {
         throw new NoSuchElementException();
@@ -339,7 +335,6 @@ public class DoublyLinkedList<T> implements Iterable<T>{
 
   }
 
-  @Override
   public Iterator<T> iterator() {
     return this.iteratorForwards();
   }
