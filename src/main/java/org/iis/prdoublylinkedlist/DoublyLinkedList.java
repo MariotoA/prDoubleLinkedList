@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class DoublyLinkedList<T> implements Iterable<T>{
-  public static class NodeDoublyLinkedList<E> {
+  private static class NodeDoublyLinkedList<E> {
     E element;
     NodeDoublyLinkedList<E> prev;
     NodeDoublyLinkedList<E> next;

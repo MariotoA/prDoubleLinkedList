@@ -28,12 +28,7 @@ public class DoublyLinkedListTest {
         assertFalse(lista.isEmpty());
     }
     
-    @Test(expected = DoublyLinkedListException.class)
-    public void testInsertEndNull() {
-        DoublyLinkedList<Integer> lista = new DoublyLinkedList<Integer>();
-        lista.insertEnd(null);
-    }
-    
+
     @Test
     public void testInsertEndUnElemento() {
         DoublyLinkedList<Integer> lista = new DoublyLinkedList<Integer>();
@@ -62,11 +57,6 @@ public class DoublyLinkedListTest {
         assertEquals(esperado, real);
     }
     
-    @Test (expected = DoublyLinkedListException.class)
-    public void testInsertBeginningElementoNulo() {
-        DoublyLinkedList<Integer> lista = new DoublyLinkedList<Integer>();
-        lista.insertBeginning(null);
-    }
     
     @Test
     public void testSiSeInsertaAlPrincipioEnUnaListaYaCreadaSeraElPrimero() {
